@@ -1,0 +1,15 @@
+.anchor
+.DS_Store
+target
+**/*.rs.bk
+node_modules
+test-ledger
+.yarn
+user.json
+
+
+*-ledger-*
+.next/
+mock-user.json
+user.json
+read.md

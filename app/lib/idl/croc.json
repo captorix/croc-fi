@@ -1,0 +1,616 @@
+{
+  "address": "F91YBp47Bk8MVGNnPK3edQfrwJLv9eDWRXzfHiVUXk4k",
+  "metadata": {
+    "name": "croc",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "callback_check_tooth",
+      "docs": [
+        "VRF callback to check the pressed tooth",
+        "Each tooth has 1/teeth_left probability of being the bad tooth"
+      ],
+      "discriminator": [
+        233,
+        18,
+        56,
+        134,
+        2,
+        99,
+        7,
+        37
+      ],
+      "accounts": [
+        {
+          "name": "vrf_program_identity",
+          "docs": [
+            "This check ensures that the vrf_program_identity (which is a PDA) is a signer",
+            "enforcing the callback is executed by the VRF program through CPI"
+          ],
+          "signer": true,
+          "address": "9irBy75QS2BN81FUgXuHcjqceJJRuc9oDkAe8TKVvvAw"
+        },
+        {
+          "name": "game",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "randomness",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "delegate",
+      "docs": [
+        "Delegate the game account to use the VRF in the ephemeral rollups"
+      ],
+      "discriminator": [
+        90,
+        147,
+        75,
+        178,
+        85,
+        88,
+        4,
+        137
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "buffer_game",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  117,
+                  102,
+                  102,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "game"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                210,
+                16,
+                223,
+                21,
+                46,
+                255,
+                101,
+                9,
+                100,
+                62,
+                240,
+                240,
+                222,
+                233,
+                111,
+                106,
+                184,
+                180,
+                155,
+                206,
+                18,
+                24,
+                160,
+                132,
+                83,
+                144,
+                213,
+                167,
+                55,
+                9,
+                5,
+                5
+              ]
+            }
+          }
+        },
+        {
+          "name": "delegation_record_game",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  100,
+                  101,
+                  108,
+                  101,
+                  103,
+                  97,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "game"
+              }
+            ],
+            "program": {
+              "kind": "account",
+              "path": "delegation_program"
+            }
+          }
+        },
+        {
+          "name": "delegation_metadata_game",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  100,
+                  101,
+                  108,
+                  101,
+                  103,
+                  97,
+                  116,
+                  105,
+                  111,
+                  110,
+                  45,
+                  109,
+                  101,
+                  116,
+                  97,
+                  100,
+                  97,
+                  116,
+                  97
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "game"
+              }
+            ],
+            "program": {
+              "kind": "account",
+              "path": "delegation_program"
+            }
+          }
+        },
+        {
+          "name": "game",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  114,
+                  111,
+                  99,
+                  95,
+                  100,
+                  101,
+                  110,
+                  116,
+                  95,
+                  103,
+                  97,
+                  109,
+                  101
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "game_index"
+              }
+            ]
+          }
+        },
+        {
+          "name": "owner_program",
+          "address": "F91YBp47Bk8MVGNnPK3edQfrwJLv9eDWRXzfHiVUXk4k"
+        },
+        {
+          "name": "delegation_program",
+          "address": "DELeGGvXpWV2fqJUhqcF5ZSYMS4JTLjteaAMARRSaeSh"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "game_index",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "initialize",
+      "docs": [
+        "Initialize a new Croc Dentist game"
+      ],
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "game",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  114,
+                  111,
+                  99,
+                  95,
+                  100,
+                  101,
+                  110,
+                  116,
+                  95,
+                  103,
+                  97,
+                  109,
+                  101
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "game_index"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "game_index",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "new_game",
+      "docs": [
+        "Start a new game after the current one is over",
+        "Resets game state without undelegating"
+      ],
+      "discriminator": [
+        211,
+        13,
+        182,
+        128,
+        71,
+        187,
+        248,
+        202
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "game",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  114,
+                  111,
+                  99,
+                  95,
+                  100,
+                  101,
+                  110,
+                  116,
+                  95,
+                  103,
+                  97,
+                  109,
+                  101
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "game_index"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "_game_index",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "press_tooth_delegated",
+      "docs": [
+        "Press a tooth - delegated version for ephemeral rollups",
+        "game_index: which game to play",
+        "tooth_index: which tooth to press (0 to TOTAL_TEETH-1)",
+        "client_seed: random seed from client for VRF"
+      ],
+      "discriminator": [
+        2,
+        154,
+        183,
+        29,
+        246,
+        213,
+        60,
+        213
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "game",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  114,
+                  111,
+                  99,
+                  95,
+                  100,
+                  101,
+                  110,
+                  116,
+                  95,
+                  103,
+                  97,
+                  109,
+                  101
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "game_index"
+              }
+            ]
+          }
+        },
+        {
+          "name": "oracle_queue",
+          "writable": true,
+          "address": "5hBR571xnXppuCPveTrctfTU7tJLSN94nq7kv7FRK5Tc"
+        },
+        {
+          "name": "program_identity",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  105,
+                  100,
+                  101,
+                  110,
+                  116,
+                  105,
+                  116,
+                  121
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "vrf_program",
+          "address": "Vrf1RNUjXmQGjmQrQLvJHs9SNkvDJEsRVFPkfSQUwGz"
+        },
+        {
+          "name": "slot_hashes",
+          "address": "SysvarS1otHashes111111111111111111111111111"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "_game_index",
+          "type": "u32"
+        },
+        {
+          "name": "tooth_index",
+          "type": "u8"
+        },
+        {
+          "name": "client_seed",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "process_undelegation",
+      "discriminator": [
+        196,
+        28,
+        41,
+        206,
+        48,
+        37,
+        51,
+        167
+      ],
+      "accounts": [
+        {
+          "name": "base_account",
+          "writable": true
+        },
+        {
+          "name": "buffer"
+        },
+        {
+          "name": "payer",
+          "writable": true
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "account_seeds",
+          "type": {
+            "vec": "bytes"
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Game",
+      "discriminator": [
+        27,
+        90,
+        166,
+        125,
+        74,
+        100,
+        121,
+        18
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "GameAlreadyOver",
+      "msg": "Game is already over"
+    },
+    {
+      "code": 6001,
+      "name": "InvalidToothIndex",
+      "msg": "Invalid tooth index"
+    },
+    {
+      "code": 6002,
+      "name": "ToothAlreadyPressed",
+      "msg": "Tooth has already been pressed"
+    },
+    {
+      "code": 6003,
+      "name": "GameNotOver",
+      "msg": "Game is not over yet"
+    }
+  ],
+  "types": [
+    {
+      "name": "Game",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "game_index",
+            "docs": [
+              "Game index identifier"
+            ],
+            "type": "u32"
+          },
+          {
+            "name": "pressed_teeth",
+            "docs": [
+              "Bitmap of pressed teeth (bit set = tooth pressed)"
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "total_teeth",
+            "docs": [
+              "Total number of teeth in the game"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "game_over",
+            "docs": [
+              "Whether the game is over"
+            ],
+            "type": "bool"
+          },
+          {
+            "name": "teeth_pressed_count",
+            "docs": [
+              "Count of teeth pressed"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "current_tooth",
+            "docs": [
+              "Current tooth being checked (for VRF callback)"
+            ],
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ]
+}
