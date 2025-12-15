@@ -1,0 +1,35 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Crocodile head -->
+  <ellipse cx="256" cy="280" rx="200" ry="150" fill="#5ca85c"/>
+  <ellipse cx="256" cy="280" rx="180" ry="130" fill="#6cb86c"/>
+  
+  <!-- Eyes -->
+  <circle cx="200" cy="240" r="30" fill="#fff"/>
+  <circle cx="312" cy="240" r="30" fill="#fff"/>
+  <circle cx="205" cy="245" r="15" fill="#000"/>
+  <circle cx="307" cy="245" r="15" fill="#000"/>
+  
+  <!-- Nostrils -->
+  <ellipse cx="230" cy="320" rx="8" ry="12" fill="#3a5a3a"/>
+  <ellipse cx="282" cy="320" rx="8" ry="12" fill="#3a5a3a"/>
+  
+  <!-- Mouth line -->
+  <path d="M 100 340 Q 256 360 412 340" stroke="#2a4a2a" stroke-width="4" fill="none"/>
+  
+  <!-- Teeth -->
+  <polygon points="150,340 155,360 160,340" fill="#fff"/>
+  <polygon points="180,340 185,365 190,340" fill="#fff"/>
+  <polygon points="210,340 215,368 220,340" fill="#fff"/>
+  <polygon points="240,340 245,370 250,340" fill="#fff"/>
+  <polygon points="270,340 275,370 280,340" fill="#fff"/>
+  <polygon points="300,340 305,368 310,340" fill="#fff"/>
+  <polygon points="330,340 335,365 340,340" fill="#fff"/>
+  <polygon points="360,340 365,360 370,340" fill="#fff"/>
+  
+  <!-- Scales texture -->
+  <circle cx="180" cy="270" r="8" fill="#4a8a4a" opacity="0.3"/>
+  <circle cx="220" cy="265" r="6" fill="#4a8a4a" opacity="0.3"/>
+  <circle cx="290" cy="265" r="6" fill="#4a8a4a" opacity="0.3"/>
+  <circle cx="330" cy="270" r="8" fill="#4a8a4a" opacity="0.3"/>
+  <circle cx="256" cy="310" r="7" fill="#4a8a4a" opacity="0.3"/>
+</svg>

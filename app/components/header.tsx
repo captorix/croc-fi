@@ -1,95 +1,93 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { useWallet } from "@solana/wallet-adapter-react"
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Home, Plus, Map } from "lucide-react"
-import { WalletInfo } from "./wallet-info"
+import { Menu, Github } from "lucide-react"
+import { useWallet } from "@solana/wallet-adapter-react"
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui"
+import { Button } from "@/components/ui/button"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 
 export function Header() {
-  const { publicKey } = useWallet()
   const pathname = usePathname()
 
   const navItems = [
-    { href: "/", label: "Game", icon: Home },
-    { href: "/create", label: "Create", icon: Plus },
-    { href: "/map", label: "Map", icon: Map },
+    { href: "/", label: "Game" },
+    { href: "/create", label: "Create" },
+    { href: "/map", label: "Map" },
   ]
 
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border shadow-sm"
-    >
-      <div className="max-w-7xl mx-auto px-4 py-3">
+    <header className="bg-transparent fixed top-0 z-50 w-full">
+      <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
-              <span className="text-white text-xl">🐊</span>
-            </div>
-            <h1 className="text-xl font-bold text-foreground hidden sm:block">
+          <Link href="/" className="flex items-center gap-2">
+            <span className="text-2xl">🐊</span>
+            <h1 className="text-xl font-bold hidden sm:block">
               Crocodile Dentist
             </h1>
           </Link>
 
-          {/* Navigation */}
-          <nav className="hidden md:flex items-center gap-1 bg-secondary/50 rounded-full p-1">
-            {navItems.map((item) => {
-              const Icon = item.icon
-              const isActive = pathname === item.href
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                    isActive
-                      ? "bg-primary text-primary-foreground shadow-sm"
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-                  }`}
-                >
-                  <Icon className="w-4 h-4" />
-                  <span>{item.label}</span>
-                </Link>
-              )
-            })}
+          {/* Desktop Navigation */}
+
+          <nav className="hidden md:flex items-center gap-2">
+            {navItems.map((item) => (
+              <Button
+                key={item.href}
+                variant={pathname === item.href ? "default" : "ghost"}
+                asChild
+                className="bg-transparent hover:bg-primary/10 text-primary"
+              >
+                <Link href={item.href}>{item.label}</Link>
+              </Button>
+            ))}
           </nav>
 
-          {/* Mobile Navigation */}
-          <nav className="flex md:hidden items-center gap-1">
-            {navItems.map((item) => {
-              const Icon = item.icon
-              const isActive = pathname === item.href
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`flex items-center justify-center w-10 h-10 rounded-full transition-all ${
-                    isActive
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:bg-secondary"
-                  }`}
-                >
-                  <Icon className="w-5 h-5" />
-                </Link>
-              )
-            })}
-          </nav>
-
-          {/* Wallet Connection */}
+          {/* Mobile Navigation + Wallet */}
           <div className="flex items-center gap-2">
-            {publicKey && (
-              <div className="hidden md:block">
-                <WalletInfo />
-              </div>
-            )}
-            <WalletMultiButton className="!bg-primary hover:!bg-primary/90 !rounded-full !text-sm !font-medium !transition-all !shadow-sm hover:!shadow-md" />
+            {/* GitHub Link */}
+            <a
+              href="https://github.com/yourusername/yourrepo"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground hover:text-primary transition-colors"
+            >
+              <Github className="w-5 h-5" />
+            </a>
+
+            {/* Mobile Menu */}
+            <Sheet>
+              <SheetTrigger asChild className="md:hidden">
+                <Button variant="ghost" size="icon" className="hover:bg-white/10">
+                  <Menu className="h-5 w-5" />
+                  <span className="sr-only">Toggle menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+                <nav className="flex flex-col gap-4 mt-8">
+                  {navItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={`text-lg font-medium ${
+                        pathname === item.href
+                          ? "text-primary"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </nav>
+              </SheetContent>
+            </Sheet>
+
+            {/* Wallet Button */}
+            {/* <WalletMultiButton /> */}
           </div>
         </div>
       </div>
-    </motion.header>
+    </header>
   )
 }
